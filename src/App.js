@@ -19,7 +19,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       auth: {
-        isAuthenticated: false,
+        isAuthenticated: true,
         authenticate(cb) {
           this.isAuthenticated = true;
           setTimeout(cb, 100); // fake async

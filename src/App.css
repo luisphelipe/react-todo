@@ -21,7 +21,7 @@ main {
 }
 
 nav>ul {
-  padding: 1rem;
+  padding: 1rem 0;
   display: flex;
   justify-content: center;
   background-color: #333;
@@ -31,7 +31,6 @@ nav>ul {
 
 nav>ul>li {
   margin: 0 2rem;
-  text-decoration: none;
 }
 
 nav>ul>li>a {
@@ -48,6 +47,29 @@ nav>ul>li>a {
 .form>input,
 .form>label,
 .form>input {
+  margin: .2rem 0;
   font-size: 1.2rem;
+}
+
+li.done {
+  text-decoration: line-through;
+}
+
+#todoList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#todoList>div {
   margin: .5rem .2rem;
+  cursor: pointer;
+}
+
+div#todoInput>button {
+  margin-left: .2rem;
+}
+
+input,
+button {
+  min-height: 1.5rem;
 }

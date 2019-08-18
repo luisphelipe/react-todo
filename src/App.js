@@ -19,22 +19,15 @@ class App extends React.Component {
     super(props)
     this.state = {
       auth: {
-        isAuthenticated: true,
-        authenticate(cb) {
-          this.isAuthenticated = true;
-          setTimeout(cb, 100); // fake async
-        },
-        signout(cb) {
-          this.isAuthenticated = false;
-          setTimeout(cb, 100);
-        }
+        isAuthenticated: false
       }
     }
 
     this.toggleAuth = this.toggleAuth.bind(this)
   }
 
-  toggleAuth() {
+  toggleAuth(email="email", password="password") {
+    console.log(email, password)
     this.setState((prevState) => {
       return { auth: { isAuthenticated: !prevState.auth.isAuthenticated }}
     })
@@ -69,7 +62,8 @@ class App extends React.Component {
               <GuestRoute 
                 path="/signup/" 
                 component={Signup} 
-                isNotLoggedIn={!this.state.auth.isAuthenticated} />
+                isNotLoggedIn={!this.state.auth.isAuthenticated} 
+                submitSignup={this.toggleAuth} />
             </main>
           </div>
         </Router>

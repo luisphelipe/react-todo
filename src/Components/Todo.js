@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ApolloClient } from 'apollo-client';
-import { ApolloProvider, Query, Mutation } from 'react-apollo';
+// import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -14,22 +14,15 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:3000/todo/graphql',
 });
 
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI"
-  // return the headers to the context so httpLink can read them
+const authLink = (token) => setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: `Bearer ${token}`,
     }
   }
 });
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
 
 const QUERY_TASKS = gql`
   {
@@ -66,6 +59,17 @@ const MUTATION_CREATE_TASK = gql`
     }
   }
 `
+const MUTATION_DELETE_TASK = gql`
+  mutation deleteTask($taskId: ID!){
+    deleteTask(taskId: $taskId) {
+      task {
+        id
+        title
+        done
+      }
+    }
+  }
+`
 
 
 class Todo extends React.Component {
@@ -73,19 +77,19 @@ class Todo extends React.Component {
     super(props);
 
     this.state = {
+      apolloClient: new ApolloClient({
+        link: authLink(props.authToken).concat(httpLink),
+        cache: new InMemoryCache()
+      }),
+
       currentItem: '',
       loading: true,
-      todoList: [
-        // { id: 1, title: 'teste1', done: false },
-        // { id: 2, title: 'teste2', done: false },
-        // { id: 3, title: 'teste3', done: true },
-        // { id: 4, title: 'teste4', done: false }
-      ]
+      todoList: []
     }
   }
 
   componentDidMount() {
-    client.query({query: QUERY_TASKS}).then(res => 
+    this.state.apolloClient.query({query: QUERY_TASKS}).then(res => 
       this.setState({ todoList: res['data']['me']['tasks'], loading: false })
     )
   }
@@ -95,7 +99,7 @@ class Todo extends React.Component {
   }
 
   addCurrentItem = () => {
-    client.mutate({mutation: MUTATION_CREATE_TASK, variables: { 'title': this.state.currentItem }}).then(res => {
+    this.state.apolloClient.mutate({mutation: MUTATION_CREATE_TASK, variables: { 'title': this.state.currentItem }}).then(res => {
       const task = res['data']['createTask']['task']
 
       this.setState((oldState) => {
@@ -114,14 +118,27 @@ class Todo extends React.Component {
     newList[itemIndex].done = !(newList[itemIndex].done)
     this.setState({todoList: newList})
 
-    client.mutate({mutation: MUTATION_TOGGLE_TASK, variables: { 'taskId': itemId }}).then(res => 
+    this.state.apolloClient.mutate({mutation: MUTATION_TOGGLE_TASK, variables: { 'taskId': itemId }}).then(res => 
       console.log(res['data']['toggleTask']['task'])
+    )
+  }
+
+  deleteTask = (itemId) => {
+    let newList = this.state.todoList.slice();
+    let itemIndex = newList.findIndex(x => x.id === itemId)
+    newList.splice(itemIndex, 1)
+    
+
+    this.setState({todoList: newList})
+
+    this.state.apolloClient.mutate({mutation: MUTATION_DELETE_TASK, variables: { 'taskId': itemId }}).then(res => 
+      console.log(res['data']['deleteTask']['task'])
     )
   }
 
   render() {
     return (
-      <ApolloProvider client={client}>
+      // <ApolloProvider client={this.state.apolloClient}>
         <div>
           <h2>Todo</h2>
           <div id="todoInput">
@@ -151,6 +168,7 @@ class Todo extends React.Component {
                     <ListItem
                       key={listItem.id} 
                       handleClick={() => this.toggleDone(listItem.id)} 
+                      deleteTask={() => this.deleteTask(listItem.id)}
                       done={listItem.done}
                       title={listItem.title}
                     />
@@ -160,7 +178,7 @@ class Todo extends React.Component {
             </ul>
           }
         </div>
-      </ApolloProvider>
+      // </ApolloProvider>
     );
   }
 }

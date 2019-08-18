@@ -13,13 +13,13 @@ import PublicNav from './Components/PublicNav'
 import PrivateRoute from './Components/PrivateRoute'
 import GuestRoute from './Components/GuestRoute'
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       auth: {
-        isAuthenticated: true
+        isAuthenticated: true,
+        token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI"
       }
     }
 
@@ -72,7 +72,9 @@ class App extends React.Component {
               <PrivateRoute 
                 path='/' exact 
                 component={Todo} 
-                isLoggedIn={this.state.auth.isAuthenticated} />
+                isLoggedIn={this.state.auth.isAuthenticated} 
+                authToken={this.state.auth.token} 
+                />
 
               <GuestRoute 
                 path="/login/" 

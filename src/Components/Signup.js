@@ -15,18 +15,18 @@ class Signup extends React.Component {
   submitSignup = (event) => {
     event.preventDefault()
 
-    this.props.submitSignup(this.state.email, this.state.password)
+    this.props.submitSignup(this.state.email, this.state.password, this.state.passwordConfirmation)
   }
 
-  updateEmail = (event) => {
+  updateEmail(event) {
     this.setState({ email: event.target.value })
   }
 
-  updatePassword = (event) => {
+  updatePassword(event) {
     this.setState({ password: event.target.value })
   }
 
-  updatePasswordConfirmation = (event) => {
+  updatePasswordConfirmation(event) {
     this.setState({ passwordConfirmation: event.target.value })
   }
   
@@ -56,7 +56,10 @@ class Signup extends React.Component {
             id="password_confirmation" 
             onChange={(event) => this.updatePasswordConfirmation(event)} />
 
-          <input type="submit" value="Signup" onClick={(event) => this.submitSignup(event)} />
+          <input 
+            type="submit" 
+            value="Signup" 
+            onClick={event => this.submitSignup(event)} />
         </div>
       </div>
     )

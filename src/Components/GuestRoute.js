@@ -8,11 +8,11 @@ const GuestRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={() =>
         isNotLoggedIn ? (
-          <Component {...props} />
+          <Component {...rest} />
         ) : (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Redirect to={{ pathname: '/', state: { from: rest.location } }} />
         )
       }
     />

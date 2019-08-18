@@ -3,7 +3,7 @@ import React from 'react'
 
 function ListItem(props) {
   return (
-    <li className={props.done ? 'done' : ''}>{props.title}</li>
+    <li className={props.done ? 'done' : ''} onClick={props.handleClick}>{props.title}</li>
   );
 }
 

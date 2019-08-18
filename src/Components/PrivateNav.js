@@ -8,7 +8,7 @@ function PrivateNav(props) {
       <li>
         <Link to="/">Todo</Link>
       </li>
-      <li onClick={() => props.toggleAuth()}>
+      <li onClick={() => props.submitLogout()}>
         Sair
       </li>
     </ul>

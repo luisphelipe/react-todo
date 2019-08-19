@@ -158,8 +158,8 @@ class Todo extends React.Component {
 
             {
               this.state.loading ? 
-              <button onClick={this.addCurrentItem} disabled>Loading...</button> :
-              <button onClick={this.addCurrentItem}>Add item</button>
+              <button id="todoButton" onClick={this.addCurrentItem} disabled>Loading...</button> :
+              <button id="todoButton" onClick={this.addCurrentItem}>Add item</button>
             }
           </div>
           {

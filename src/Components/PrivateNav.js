@@ -8,8 +8,8 @@ function PrivateNav(props) {
       <li>
         <Link to="/">Todo</Link>
       </li>
-      <li onClick={() => props.submitLogout()}>
-        Sair
+      <li id="logoutLi" onClick={() => props.submitLogout()}>
+        Logout
       </li>
     </ul>
   )

@@ -119,7 +119,10 @@ class App extends React.Component {
 
       let token = res['data']['userSignup']['token']
 
-      this.setState({auth: {
+      this.setState({
+        errors: [],
+        
+        auth: {
         isAuthenticated: true,
         token
       }})
@@ -150,7 +153,10 @@ class App extends React.Component {
 
       let token = res['data']['userLogin']['token']
 
-      this.setState({auth: {
+      this.setState({
+        errors: [],
+        
+        auth: {
         isAuthenticated: true,
         token
       }})
@@ -182,40 +188,43 @@ class App extends React.Component {
               }
             </nav>
 
-            <main>
+            <div id="mainDiv">
+              <div>
+                {
+                  this.state.errors.length > 0 ? 
+                  <div id="errors">
+                    <h3>ERRO(s):</h3> 
+                    {
+                      this.state.errors.map((erro, index) => {
+                        return <p key={index}>{erro}</p>
+                      })
+                    }
+                  </div> :
+                  ''
+                }
+                <main>
+                  <PrivateRoute 
+                    path='/' exact 
+                    component={Todo} 
+                    isLoggedIn={this.state.auth.isAuthenticated} 
+                    authToken={this.state.auth.token} 
+                    />
 
-              <PrivateRoute 
-                path='/' exact 
-                component={Todo} 
-                isLoggedIn={this.state.auth.isAuthenticated} 
-                authToken={this.state.auth.token} 
-                />
+                  <GuestRoute 
+                    path="/login/" 
+                    component={Login} 
+                    isNotLoggedIn={!this.state.auth.isAuthenticated} 
+                    submitLogin={this.submitLogin} />
 
-              <GuestRoute 
-                path="/login/" 
-                component={Login} 
-                isNotLoggedIn={!this.state.auth.isAuthenticated} 
-                submitLogin={this.submitLogin} />
+                  <GuestRoute 
+                    path="/signup/" 
+                    component={Signup} 
+                    isNotLoggedIn={!this.state.auth.isAuthenticated} 
+                    submitSignup={this.submitSignup} />
 
-              <GuestRoute 
-                path="/signup/" 
-                component={Signup} 
-                isNotLoggedIn={!this.state.auth.isAuthenticated} 
-                submitSignup={this.submitSignup} />
-                
-              {
-                this.state.errors.length > 0 ? 
-                <div id="errors">
-                  <h3>ERRO(s):</h3> 
-                  {
-                    this.state.errors.map((erro) => {
-                      return <p>{erro}</p>
-                    })
-                  }
-                </div> :
-                ''
-              }
-            </main>
+                </main>
+              </div>
+            </div>
           </div>
         </Router>
       </div>

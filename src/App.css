@@ -1,8 +1,8 @@
 .App {
   display: flex;
   justify-content: center;
+  font-family: Helvetica, sans-serif
 }
-
 
 body,
 .App,
@@ -14,10 +14,28 @@ nav>ul {
   width: 100%
 }
 
+#mainDiv,
+#mainDiv>*,
+main>div {
+  min-width: 22rem;
+}
+
+#mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 main {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  margin: .5rem;
+  padding: .5rem;
+}
+
+nav {
+  margin-bottom: 1.5rem;
 }
 
 nav>ul {
@@ -65,11 +83,26 @@ li.done {
   cursor: pointer;
 }
 
-div#todoInput>button {
-  margin-left: .2rem;
+div#todoInput>* {
+  min-height: 24px;
 }
 
-input,
+div#todoInput>button {
+  margin-left: 1%;
+}
+
+div#todoInput>input {
+  border: 1%;
+  width: 65%;
+  margin: 0;
+}
+
+button#todoButton {
+  margin: 0;
+  width: 32%;
+}
+
+div#todo input,
 button {
   min-height: 1.5rem;
 }
@@ -80,5 +113,32 @@ div.listItem {
 }
 
 div#errors {
-  margin-left: 2rem;
+  margin: .5rem;
+  padding: .5rem;
+  border: solid 1px #dd0000;
+  background-color: #ffcccc;
+  border-radius: 2%;
+}
+
+li#logoutLi {
+  cursor: pointer;
+}
+
+h2 {
+  padding-right: 1rem;
+  text-align: center;
+}
+
+img.delButton {
+  height: .8rem;
+}
+
+@media (max-width: 720px) {
+
+  #mainDiv,
+  #mainDiv>*,
+  main>div {
+    min-width: 100%;
+  }
+
 }

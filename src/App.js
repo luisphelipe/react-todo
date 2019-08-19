@@ -18,7 +18,8 @@ import GuestRoute from './Components/GuestRoute'
 
 
 const apolloClient = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  // uri: 'http://localhost:3000/graphql',
+  uri: 'https://rails-graphql-todo.herokuapp.com/graphql',
 });
 
 const MUTATION_SIGNUP = gql`

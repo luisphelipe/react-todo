@@ -11,7 +11,8 @@ import ListItem from './ListItem'
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/todo/graphql',
+  // uri: 'http://localhost:3000/todo/graphql',
+  uri: 'https://rails-graphql-todo.herokuapp.com/todo/graphql',
 });
 
 const authLink = (token) => setContext((_, { headers }) => {

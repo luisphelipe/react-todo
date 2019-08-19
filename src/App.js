@@ -83,7 +83,7 @@ class App extends React.Component {
       },
       auth: {
         isAuthenticated: false,
-        token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI",
+        token: "",
       },
       errors: []
     }

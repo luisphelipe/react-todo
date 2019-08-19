@@ -78,8 +78,11 @@ class App extends React.Component {
     super(props)
     this.state = {
       auth: {
+        clientId: "S7aN6PMOUhrdFxWTS4ke2hif4C6o4H3nFqAV6uciCss",  
+        clientSecret: "pSURYFc4sr6HnQ_bt2Yqevhy8VGNb8xyrUZDE2w6gjM",
+
         isAuthenticated: false,
-        token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI"
+        token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI",
       },
       errors: []
     }
@@ -95,11 +98,8 @@ class App extends React.Component {
     console.log(email, password, passwordConfirmation)
 
     const params = {
-      // localhost tokens
-      // "clientId": "8x0__HuX_y4X9gxH0dTF_wHuoLheLygPWhs4TeaW9F0",  
-      // "clientSecret": "Q3WD_rBGkUUrX7bOqFSjgl1XpAYhzbKFxNJmhqiMUyI",
-      "clientId": "S7aN6PMOUhrdFxWTS4ke2hif4C6o4H3nFqAV6uciCss",  
-      "clientSecret": "pSURYFc4sr6HnQ_bt2Yqevhy8VGNb8xyrUZDE2w6gjM",
+      "clientId": this.state.auth.clientId,  
+      "clientSecret": this.state.auth.clientSecret,
       "email": email,
       "password": password,
       "passwordConfirmation": passwordConfirmation
@@ -130,8 +130,8 @@ class App extends React.Component {
     console.log(email, password)
 
     const params = {
-      "clientId": "8x0__HuX_y4X9gxH0dTF_wHuoLheLygPWhs4TeaW9F0",  
-      "clientSecret": "Q3WD_rBGkUUrX7bOqFSjgl1XpAYhzbKFxNJmhqiMUyI",
+      "clientId": this.state.auth.clientId,  
+      "clientSecret": this.state.auth.clientSecret,
       "email": email,
       "password": password,
     }

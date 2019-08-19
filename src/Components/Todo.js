@@ -85,7 +85,7 @@ class Todo extends React.Component {
 
       currentItem: '',
       loading: true,
-      todoList: []
+      todoList: null,
     }
   }
 
@@ -100,12 +100,15 @@ class Todo extends React.Component {
   }
 
   addCurrentItem = () => {
+    this.setState({loading: true})
+
     this.state.apolloClient.mutate({mutation: MUTATION_CREATE_TASK, variables: { 'title': this.state.currentItem }}).then(res => {
       const task = res['data']['createTask']['task']
 
       this.setState((oldState) => {
         return {
           currentItem: '',
+          loading: false,
           todoList: oldState.todoList.concat(task)
         }
       })
@@ -160,7 +163,7 @@ class Todo extends React.Component {
             }
           </div>
           {
-            this.state.loading ?
+            this.state.todoList === null ?
             'Loading...' :
             <ul id="todoList">
               {

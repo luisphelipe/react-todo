@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag'
+
 import './App.css';
 
 import Todo from './Components/Todo'
@@ -13,43 +16,149 @@ import PublicNav from './Components/PublicNav'
 import PrivateRoute from './Components/PrivateRoute'
 import GuestRoute from './Components/GuestRoute'
 
+
+const apolloClient = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+});
+
+const MUTATION_SIGNUP = gql`
+  mutation userSignup(
+    $clientId: String!, 
+    $clientSecret: String!, 
+    $email: String!, 
+    $password: String!, 
+    $passwordConfirmation: String!) {
+
+    userSignup(
+      clientId: $clientId, 
+      clientSecret: $clientSecret, 
+      email: $email, 
+      password: $password, 
+      passwordConfirmation: $passwordConfirmation) {
+
+        user {
+          id
+          email
+        }
+
+        token
+        errors
+    }
+  }
+`
+
+const MUTATION_LOGIN = gql`
+  mutation userLogin(
+    $clientId: String!, 
+    $clientSecret: String!, 
+    $email: String!, 
+    $password: String!) {
+
+    userLogin(
+      clientId: $clientId, 
+      clientSecret: $clientSecret, 
+      email: $email, 
+      password: $password) { 
+
+        user {
+          id
+          email
+        }
+
+        token
+        errors
+    }
+  }
+`
+
+
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       auth: {
-        isAuthenticated: true,
+        isAuthenticated: false,
         token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI"
-      }
+      },
+      errors: []
     }
 
-    this.toggleAuth = this.toggleAuth.bind(this)
     this.submitSignup = this.submitSignup.bind(this)
     this.submitLogin = this.submitLogin.bind(this)
     this.submitLogout = this.submitLogout.bind(this)
   }
 
-  toggleAuth() {
-    this.setState((prevState) => {
-      return { auth: { isAuthenticated: !prevState.auth.isAuthenticated }}
-    })
-  }
 
   submitSignup(email="email", password="password", passwordConfirmation="confirmation") {
-    console.log("submitting login")
+    console.log("submitting signup")
     console.log(email, password, passwordConfirmation)
-    this.toggleAuth();
+
+    const params = {
+      "clientId": "8x0__HuX_y4X9gxH0dTF_wHuoLheLygPWhs4TeaW9F0",  
+      "clientSecret": "Q3WD_rBGkUUrX7bOqFSjgl1XpAYhzbKFxNJmhqiMUyI",
+      "email": email,
+      "password": password,
+      "passwordConfirmation": passwordConfirmation
+    }
+
+    apolloClient.mutate({mutation: MUTATION_SIGNUP, variables: params}).then(res => {
+      let errors = res['data']['userSignup']['errors']
+
+      if (errors) {
+        this.setState({
+          errors
+        })
+
+        return;
+      }
+
+      let token = res['data']['userSignup']['token']
+
+      this.setState({auth: {
+        isAuthenticated: true,
+        token
+      }})
+    })
   }
 
   submitLogin(email="email", password="password") {
     console.log("submitting login")
     console.log(email, password)
-    this.toggleAuth();
+
+    const params = {
+      "clientId": "8x0__HuX_y4X9gxH0dTF_wHuoLheLygPWhs4TeaW9F0",  
+      "clientSecret": "Q3WD_rBGkUUrX7bOqFSjgl1XpAYhzbKFxNJmhqiMUyI",
+      "email": email,
+      "password": password,
+    }
+
+    apolloClient.mutate({mutation: MUTATION_LOGIN, variables: params}).then(res => {
+      let errors = res['data']['userLogin']['errors']
+
+      if (errors) {
+        this.setState({
+          errors
+        })
+
+        return;
+      }
+
+      let token = res['data']['userLogin']['token']
+
+      this.setState({auth: {
+        isAuthenticated: true,
+        token
+      }})
+    })
   }
 
   submitLogout() {
-    console.log("submitting logout")
-    this.toggleAuth();
+    this.setState({
+      auth: {
+        isAuthenticated: false,
+        token: ''
+      }
+    })
   }
 
 
@@ -69,6 +178,7 @@ class App extends React.Component {
             </nav>
 
             <main>
+
               <PrivateRoute 
                 path='/' exact 
                 component={Todo} 
@@ -87,6 +197,19 @@ class App extends React.Component {
                 component={Signup} 
                 isNotLoggedIn={!this.state.auth.isAuthenticated} 
                 submitSignup={this.submitSignup} />
+                
+              {
+                this.state.errors.length > 0 ? 
+                <div id="errors">
+                  <h3>ERRO(s):</h3> 
+                  {
+                    this.state.errors.map((erro) => {
+                      return <p>{erro}</p>
+                    })
+                  }
+                </div> :
+                ''
+              }
             </main>
           </div>
         </Router>

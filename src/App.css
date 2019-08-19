@@ -78,3 +78,7 @@ div.listItem {
   display: flex;
   justify-content: space-between;
 }
+
+div#errors {
+  margin-left: 2rem;
+}

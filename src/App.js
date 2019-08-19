@@ -77,10 +77,11 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      auth: {
+      doorkeeper: {
         clientId: "S7aN6PMOUhrdFxWTS4ke2hif4C6o4H3nFqAV6uciCss",  
         clientSecret: "pSURYFc4sr6HnQ_bt2Yqevhy8VGNb8xyrUZDE2w6gjM",
-
+      },
+      auth: {
         isAuthenticated: false,
         token: "lVcXWSv6i0F8Inj7eTtnorFzGZcovBCSLL2ZVQ8fjnI",
       },
@@ -98,8 +99,8 @@ class App extends React.Component {
     console.log(email, password, passwordConfirmation)
 
     const params = {
-      "clientId": this.state.auth.clientId,  
-      "clientSecret": this.state.auth.clientSecret,
+      "clientId": this.state.doorkeeper.clientId,  
+      "clientSecret": this.state.doorkeeper.clientSecret,
       "email": email,
       "password": password,
       "passwordConfirmation": passwordConfirmation
@@ -130,8 +131,8 @@ class App extends React.Component {
     console.log(email, password)
 
     const params = {
-      "clientId": this.state.auth.clientId,  
-      "clientSecret": this.state.auth.clientSecret,
+      "clientId": this.state.doorkeeper.clientId,  
+      "clientSecret": this.state.doorkeeper.clientSecret,
       "email": email,
       "password": password,
     }

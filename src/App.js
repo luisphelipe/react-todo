@@ -85,7 +85,8 @@ class App extends React.Component {
         isAuthenticated: false,
         token: "",
       },
-      errors: []
+      errors: [],
+      waitingServer: false
     }
 
     this.submitSignup = this.submitSignup.bind(this)
@@ -94,9 +95,8 @@ class App extends React.Component {
   }
 
 
-  submitSignup(email="email", password="password", passwordConfirmation="confirmation") {
-    console.log("submitting signup")
-    console.log(email, password, passwordConfirmation)
+  submitSignup(email, password, passwordConfirmation) {
+    this.setState({waitingServer: true})
 
     const params = {
       "clientId": this.state.doorkeeper.clientId,  
@@ -107,6 +107,8 @@ class App extends React.Component {
     }
 
     apolloClient.mutate({mutation: MUTATION_SIGNUP, variables: params}).then(res => {
+      this.setState({waitingServer: false})
+
       let errors = res['data']['userSignup']['errors']
 
       if (errors) {
@@ -129,9 +131,8 @@ class App extends React.Component {
     })
   }
 
-  submitLogin(email="email", password="password") {
-    console.log("submitting login")
-    console.log(email, password)
+  submitLogin(email, password) {
+    this.setState({waitingServer: true})
 
     const params = {
       "clientId": this.state.doorkeeper.clientId,  
@@ -141,6 +142,8 @@ class App extends React.Component {
     }
 
     apolloClient.mutate({mutation: MUTATION_LOGIN, variables: params}).then(res => {
+      this.setState({waitingServer: false})
+
       let errors = res['data']['userLogin']['errors']
 
       if (errors) {
@@ -199,6 +202,14 @@ class App extends React.Component {
                         return <p key={index}>{erro}</p>
                       })
                     }
+                  </div> :
+                  ''
+                }
+
+                {
+                  this.state.waitingServer ? 
+                  <div id="info">
+                    <p>Aguardando resposta do servidor...</p>
                   </div> :
                   ''
                 }

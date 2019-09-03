@@ -1,152 +1,316 @@
-.App {
-  display: flex;
-  justify-content: center;
-  font-family: Helvetica, sans-serif
+/*
+  Color pallete:
+  primary: $213
+  secondary: #768
+*/
+
+html {
+  background: url("/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Raleway", sans-serif;
 }
 
-body,
-.App,
-.App>div,
-nav,
-nav>ul {
+body {
   margin: 0;
   padding: 0;
-  width: 100%
+  font-size: 21px;
 }
 
-#mainDiv,
-#mainDiv>*,
-main>div {
-  min-width: 22rem;
-}
-
-#mainDiv {
+.App {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-main {
+#todoWrapper {
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 199, 218, 0.5) 0%,
+    rgba(255, 226, 235, 0.5) 100%
+  );
+  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
+  min-height: 70vh;
+  min-width: 40%;
+  max-width: calc(1366px * 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+}
+
+#taskFormWrapper {
   display: flex;
   justify-content: center;
-  margin: .5rem;
-  padding: .5rem;
+  min-width: 100%;
+  margin-top: 1rem;
+  border: none;
+  margin-bottom: 2rem;
+}
+
+#taskFormWrapper > div {
+  min-width: 50%;
+  max-width: 80%;
+  border-bottom: solid 1px #213;
+  padding: 0.7rem;
+  padding-bottom: 1px;
+}
+
+#taskFormWrapper > div > input {
+  max-width: calc(100% - 21px);
+  font-size: 32px;
+  border: none;
+  background-color: inherit;
+}
+
+#taskFormWrapper > div > input:focus {
+  outline: none;
+}
+
+img {
+  height: 21px;
+  width: 21px;
+  cursor: pointer;
+}
+
+.taskListWrapper {
+  width: 90%;
+}
+
+.taskWrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.taskCheckBox {
+  margin-left: 0.5rem;
+}
+
+.taskContent {
+  position: relative;
+  top: -0.1rem;
+  margin-left: 1rem;
+  word-wrap: wrap;
+}
+
+.taskDeleteButton {
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.taskCompleted {
+  text-decoration: line-through;
+  color: #768;
 }
 
 nav {
-  margin-bottom: 1.5rem;
-}
-
-nav>ul {
-  padding: 1rem 0;
+  background-image: linear-gradient(
+    90deg,
+    rgba(200, 199, 218, 0.5) 0%,
+    rgba(255, 226, 235, 0.5) 100%
+  );
+  position: absolute;
+  top: 0;
+  margin: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #333;
-  color: #ccc;
+}
+
+nav > ul {
+  margin: 0;
+  padding: 1rem 0;
+  display: flex;
   list-style-type: none;
 }
 
-nav>ul>li {
+nav > ul > li {
   margin: 0 2rem;
 }
 
-nav>ul>li>a {
+nav > ul > li > a {
   text-decoration: none;
-  color: #ccc;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 199, 218, 0.5) 0%,
+    rgba(255, 226, 235, 0.5) 100%
+  );
+  min-width: 30%;
+  border-radius: 15px;
+  padding: 1rem;
+
+  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
 }
 
-.form>label,
-.form>input,
-.form>label,
-.form>input {
-  margin: .2rem 0;
-  font-size: 1.2rem;
+.form > input,
+.form > button {
+  margin: 1.5rem 0;
+  border: none;
+  font-size: 24px;
 }
 
-li.done {
-  text-decoration: line-through;
+.form > input {
+  border-bottom: solid 1px #213;
+  background-color: inherit;
 }
 
-#todoList {
-  list-style-type: none;
-  padding: 0;
+.form > input:focus {
+  outline: none;
 }
 
-#todoList>div {
-  margin: .5rem .2rem;
+.form > button {
+  padding: 0.5rem;
+  border: solid 1px #213;
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 199, 218, 0.5) 0%,
+    rgba(255, 226, 235, 0.5) 100%
+  );
+}
+
+.form > button:hover {
   cursor: pointer;
 }
 
-div#todoInput>* {
-  min-height: 24px;
+input::placeholder {
+  color: #768;
 }
 
-div#todoInput>button {
-  margin-left: 1%;
-}
-
-div#todoInput>input {
-  border: 1%;
-  width: 65%;
-  margin: 0;
-}
-
-button#todoButton {
-  margin: 0;
-  width: 32%;
-}
-
-div#todo input,
+html,
+a,
+input,
 button {
-  min-height: 1.5rem;
+  color: #213;
 }
 
-div.listItem {
+a.selectedLink {
+  border-bottom: 1px solid #213;
+}
+
+.App * > img {
+  filter: invert(12%) sepia(11%) saturate(3813%) hue-rotate(230deg)
+    brightness(91%) contrast(89%);
+}
+
+* {
+  letter-spacing: 1px;
+}
+
+a,
+button,
+input::placeholder {
+  letter-spacing: 0.2em;
+}
+
+.Modal {
+  width: 30%;
+  margin: auto;
+  margin-top: 50vh;
+  transform: translate(0, -50%);
+
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 199, 218, 0.9) 0%,
+    rgba(255, 226, 235, 0.9) 100%
+  );
+  outline: none;
+
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
 }
 
-div#errors {
-  margin: .5rem;
-  padding: .5rem;
-  border: solid 1px #dd0000;
-  background-color: #ffcccc;
-  border-radius: 2%;
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #34200630;
 }
 
-div#info {
-  margin: .5rem;
-  padding: .5rem;
-  border: solid 1px #0000dd;
-  background-color: #ccccff;
-  border-radius: 2%;
+#modal-title {
+  margin: 0.7rem 0;
 }
 
-li#logoutLi {
-  cursor: pointer;
+#modal-close-button {
+  font-family: inherit;
+  color: inherit;
+  letter-spacing: 0.2rem;
+  font-size: inherit;
+  background-color: inherit;
+  font-weight: inherit;
+
+  font-size: 24px;
+  margin-top: 0.7rem;
+
+  max-width: 50%;
+  padding: 0.5rem;
+  border: solid 1px #213;
+  background-image: linear-gradient(
+    45deg,
+    rgba(200, 199, 218, 0.5) 0%,
+    rgba(255, 226, 235, 0.5) 100%
+  );
 }
 
-h2 {
-  padding-right: 1rem;
-  text-align: center;
-}
-
-img.delButton {
-  height: .8rem;
-}
-
-@media (max-width: 720px) {
-
-  #mainDiv,
-  #mainDiv>*,
-  main>div {
-    min-width: 100%;
+@media (max-width: 600px) {
+  .form,
+  #taskFormWrapper,
+  #todoWrapper {
+    min-width: 0%;
+    max-width: 90%;
+    padding: 0.5rem;
   }
 
+  #modal {
+    width: calc(90% - 1rem);
+  }
+
+  input::placeholder {
+    letter-spacing: 0.1rem;
+  }
+
+  .taskListWrapper {
+    width: 100%;
+  }
+
+  #taskFormWrapper {
+    margin: 0.5rem 0;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  #taskFormWrapper,
+  #taskFormWrapper > div {
+    max-width: 100%;
+  }
+
+  #taskFormWrapper > div > input {
+    font-size: 24px;
+    min-width: 0;
+    max-width: calc(100% - 16px);
+  }
+
+  img {
+    height: 16px;
+    width: 16px;
+  }
 }

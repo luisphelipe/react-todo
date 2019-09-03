@@ -1,7 +1,9 @@
 /*
-  Color pallete:
-  primary: $213
-  secondary: #768
+  Color Pallete
+
+  primary: #024 rgba(0, 68, 102, 1)
+  secondary: #246 
+  terciary: #aa4400 rgba(170, 68, 0, 1)
 */
 
 html {
@@ -27,12 +29,10 @@ body {
 }
 
 #todoWrapper {
-  background-image: linear-gradient(
-    45deg,
-    rgba(200, 199, 218, 0.5) 0%,
-    rgba(255, 226, 235, 0.5) 100%
-  );
-  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
+  background-image: linear-gradient(45deg,
+      rgba(100, 168, 202, .5) 0%,
+      rgba(255, 168, 100, .5)100%);
+  box-shadow: 2px 4px rgba(0, 68, 102, .5);
   min-height: 70vh;
   min-width: 40%;
   max-width: calc(1366px * 0.4);
@@ -51,22 +51,22 @@ body {
   margin-bottom: 2rem;
 }
 
-#taskFormWrapper > div {
+#taskFormWrapper>div {
   min-width: 50%;
   max-width: 80%;
-  border-bottom: solid 1px #213;
+  border-bottom: solid 1px #024;
   padding: 0.7rem;
   padding-bottom: 1px;
 }
 
-#taskFormWrapper > div > input {
+#taskFormWrapper>div>input {
   max-width: calc(100% - 21px);
   font-size: 32px;
   border: none;
   background-color: inherit;
 }
 
-#taskFormWrapper > div > input:focus {
+#taskFormWrapper>div>input:focus {
   outline: none;
 }
 
@@ -105,15 +105,14 @@ img {
 
 .taskCompleted {
   text-decoration: line-through;
-  color: #768;
+  color: #246;
 }
 
 nav {
-  background-image: linear-gradient(
-    90deg,
-    rgba(200, 199, 218, 0.5) 0%,
-    rgba(255, 226, 235, 0.5) 100%
-  );
+  background-image:
+    linear-gradient(90deg,
+      rgba(100, 168, 202, .5) 0%,
+      rgba(255, 168, 100, .5)100%);
   position: absolute;
   top: 0;
   margin: 0;
@@ -122,84 +121,81 @@ nav {
   justify-content: center;
 }
 
-nav > ul {
+nav>ul {
   margin: 0;
   padding: 1rem 0;
   display: flex;
   list-style-type: none;
 }
 
-nav > ul > li {
+nav>ul>li {
   margin: 0 2rem;
 }
 
-nav > ul > li > a {
+nav>ul>li>a {
   text-decoration: none;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(
-    45deg,
-    rgba(200, 199, 218, 0.5) 0%,
-    rgba(255, 226, 235, 0.5) 100%
-  );
+  background-image:
+    linear-gradient(45deg,
+      rgba(100, 168, 202, .5) 0%,
+      rgba(255, 168, 100, .5)100%);
   min-width: 30%;
   border-radius: 15px;
   padding: 1rem;
 
-  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
+  box-shadow: 2px 4px rgba(0, 68, 102, .5);
+  ;
 }
 
-.form > input,
-.form > button {
+.form>input,
+.form>button {
   margin: 1.5rem 0;
   border: none;
   font-size: 24px;
 }
 
-.form > input {
-  border-bottom: solid 1px #213;
+.form>input {
+  border-bottom: solid 1px #024;
   background-color: inherit;
 }
 
-.form > input:focus {
+.form>input:focus {
   outline: none;
 }
 
-.form > button {
+.form>button {
   padding: 0.5rem;
-  border: solid 1px #213;
-  background-image: linear-gradient(
-    45deg,
-    rgba(200, 199, 218, 0.5) 0%,
-    rgba(255, 226, 235, 0.5) 100%
-  );
+  border: solid 1px #024;
+  background-image: linear-gradient(45deg,
+      rgba(100, 168, 202, .5) 0%,
+      rgba(255, 168, 100, .5)100%);
 }
 
-.form > button:hover {
+.form>button:hover {
   cursor: pointer;
 }
 
 input::placeholder {
-  color: #768;
+  color: #246;
 }
 
 html,
 a,
 input,
 button {
-  color: #213;
+  color: #024;
 }
 
 a.selectedLink {
-  border-bottom: 1px solid #213;
+  border-bottom: 1px solid #024;
 }
 
-.App * > img {
-  filter: invert(12%) sepia(11%) saturate(3813%) hue-rotate(230deg)
-    brightness(91%) contrast(89%);
+.App *>img {
+  filter: invert(10%) sepia(21%) saturate(5884%) hue-rotate(191deg) brightness(98%) contrast(102%);
 }
 
 * {
@@ -218,11 +214,9 @@ input::placeholder {
   margin-top: 50vh;
   transform: translate(0, -50%);
 
-  background-image: linear-gradient(
-    45deg,
-    rgba(200, 199, 218, 0.9) 0%,
-    rgba(255, 226, 235, 0.9) 100%
-  );
+  background-image: linear-gradient(45deg,
+      rgba(100, 168, 202, .9) 0%,
+      rgba(255, 168, 100, .9)100%);
   outline: none;
 
   display: flex;
@@ -232,7 +226,8 @@ input::placeholder {
 
   padding: 1rem;
   border-radius: 15px;
-  box-shadow: 2px 4px rgb(34, 17, 51, 0.5);
+  box-shadow: 2px 4px rgba(0, 68, 102, .5);
+  ;
 }
 
 .Overlay {
@@ -241,7 +236,7 @@ input::placeholder {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #34200630;
+  background-color: 2px 4px rgba(0, 68, 102, 1, 0.3);
 }
 
 #modal-title {
@@ -261,15 +256,14 @@ input::placeholder {
 
   max-width: 50%;
   padding: 0.5rem;
-  border: solid 1px #213;
-  background-image: linear-gradient(
-    45deg,
-    rgba(200, 199, 218, 0.5) 0%,
-    rgba(255, 226, 235, 0.5) 100%
-  );
+  border: solid 1px #024;
+  background-image: linear-gradient(45deg,
+      rgba(100, 168, 202, .5) 0%,
+      rgba(255, 168, 100, .5)100%)
 }
 
 @media (max-width: 600px) {
+
   .form,
   #taskFormWrapper,
   #todoWrapper {
@@ -299,11 +293,11 @@ input::placeholder {
   }
 
   #taskFormWrapper,
-  #taskFormWrapper > div {
+  #taskFormWrapper>div {
     max-width: 100%;
   }
 
-  #taskFormWrapper > div > input {
+  #taskFormWrapper>div>input {
     font-size: 24px;
     min-width: 0;
     max-width: calc(100% - 16px);
